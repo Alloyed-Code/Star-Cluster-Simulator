@@ -59,10 +59,16 @@ void random_mass_distribution(int cluster_diameter_cells, double& cluster_mass, 
 		int y = rand() % (cluster_diameter_cells);
 		int z = rand() % (cluster_diameter_cells);
 
-		double mass_percent = double(rand() % (91)) + 10;
-		mass_percent = mass_percent / 100;
-		double mass = mass_percent * cluster_mass;
-
+		double mass;
+		if (cluster_mass > 1) {
+			double mass_percent = double(rand() % (max_random_percent + 1)) + 10;
+			mass_percent = mass_percent / 100;
+			mass = mass_percent * cluster_mass;
+			
+		}
+		else {
+			mass = 1;
+		}
 		interstellar_cloud[x][y][z] += mass;
 		cluster_mass -= mass;
 		//std::cout << x << "," << y << "," << z << " " << interstellar_cloud[x][y][z] << std::endl;

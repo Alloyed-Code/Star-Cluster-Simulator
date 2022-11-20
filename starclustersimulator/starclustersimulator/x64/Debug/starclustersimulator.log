@@ -1,3 +1,6 @@
-﻿  main.cpp
-C:\Users\corba\Documents\College\C++ Programs\Star-Cluster-Simulator\starclustersimulator\starclustersimulator\main.cpp(21,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+﻿  Simulating.cpp
+  initializing.cpp
+  main.cpp
+C:\Users\corba\Documents\College\C++ Programs\Star-Cluster-Simulator\starclustersimulator\starclustersimulator\main.cpp(22,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  Generating Code...
   starclustersimulator.vcxproj -> C:\Users\corba\Documents\College\C++ Programs\Star-Cluster-Simulator\starclustersimulator\x64\Debug\starclustersimulator.exe

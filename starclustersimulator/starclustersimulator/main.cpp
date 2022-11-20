@@ -13,6 +13,7 @@ double get_initial_mass(int diameter);
 int get_simulation_time();
 void add_evem_cell_mass(int cluster_diameter_cells, double& cluster_mass, double*** interstellar_cloud);
 void random_mass_distribution(int cluster_diameter_cells, double& cluster_mass, double*** interstellar_cloud);
+void gravity(double*** interstellar_cloud, int x, int y, int z, int cluster_diameter_cells);
 
 
 int main() {
@@ -51,6 +52,17 @@ int main() {
 		int simulation_time = get_simulation_time();
 		for (int i = 0; i < simulation_time; i++) {
 			//move gas
+			for (int x = 0; x < cluster_diameter_cells; x++) {
+				for (int y = 0; y < cluster_diameter_cells; y++) {
+					for (int z = 0; z < cluster_diameter_cells; z++) {
+						gravity(interstellar_cloud, x, y, z, cluster_diameter_cells);
+						//check for greatest mass
+						//make sure not to go out of range
+						//move some mass to (not from)
+					}
+				}
+			}
+
 			//check for star generation
 			//age stars
 			//record state to csv
