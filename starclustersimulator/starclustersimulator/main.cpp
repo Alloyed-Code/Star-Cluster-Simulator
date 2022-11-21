@@ -56,14 +56,20 @@ int main() {
 				for (int y = 0; y < cluster_diameter_cells; y++) {
 					for (int z = 0; z < cluster_diameter_cells; z++) {
 						gravity(interstellar_cloud, x, y, z, cluster_diameter_cells);
-						//check for greatest mass
-						//make sure not to go out of range
-						//move some mass to (not from)
 					}
 				}
 			}
-
 			//check for star generation
+			for (int x = 0; x < cluster_diameter_cells; x++) {
+				for (int y = 0; y < cluster_diameter_cells; y++) {
+					for (int z = 0; z < cluster_diameter_cells; z++) {
+						int random_percent = rand() % (100) + 1;
+						if (random_percent + interstellar_cloud[x][y][z] > (100 - star_formation_chance)) {
+							//form star
+						}
+					}
+				}
+			}
 			//age stars
 			//record state to csv
 

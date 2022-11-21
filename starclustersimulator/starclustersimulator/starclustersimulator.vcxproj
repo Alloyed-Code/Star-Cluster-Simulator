@@ -142,9 +142,14 @@
     <ClCompile Include="initializing.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Simulating.cpp" />
+    <ClCompile Include="system.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="constants.h" />
+    <ClInclude Include="protostar.h" />
+    <ClInclude Include="stellar_body.h" />
+    <ClInclude Include="system.h" />
+    <ClInclude Include="unary.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
