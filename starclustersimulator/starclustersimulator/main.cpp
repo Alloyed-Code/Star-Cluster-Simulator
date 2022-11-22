@@ -7,6 +7,10 @@
 #include <random>
 #include <time.h>
 #include "constants.h"
+#include "celestial_system.h"
+#include "unary.h"
+#include "stellar_body.h"
+#include "protostar.h"
 
 int get_cluster_diameter();
 double get_initial_mass(int diameter);
@@ -14,6 +18,7 @@ int get_simulation_time();
 void add_evem_cell_mass(int cluster_diameter_cells, double& cluster_mass, double*** interstellar_cloud);
 void random_mass_distribution(int cluster_diameter_cells, double& cluster_mass, double*** interstellar_cloud);
 void gravity(double*** interstellar_cloud, int x, int y, int z, int cluster_diameter_cells);
+void generate_protostars(double*** interstellar_cloud, int x, int y, int z, std::vector<celestial_system*>& systems, std::string cluster_name);
 
 
 int main() {
@@ -45,6 +50,8 @@ int main() {
 	add_evem_cell_mass(cluster_diameter_cells, cluster_mass, interstellar_cloud);
 
 	random_mass_distribution(cluster_diameter_cells, cluster_mass, interstellar_cloud);
+	
+	std::vector<celestial_system*> systems;
 
 	//start of simulation
 	bool run_simulation = true;
@@ -63,10 +70,7 @@ int main() {
 			for (int x = 0; x < cluster_diameter_cells; x++) {
 				for (int y = 0; y < cluster_diameter_cells; y++) {
 					for (int z = 0; z < cluster_diameter_cells; z++) {
-						int random_percent = rand() % (100) + 1;
-						if (random_percent + interstellar_cloud[x][y][z] > (100 - star_formation_chance)) {
-							//form star
-						}
+						generate_protostars(interstellar_cloud, x, y, z, systems, cluster_name);
 					}
 				}
 			}
@@ -81,6 +85,10 @@ int main() {
 		if (input != "y") {
 			run_simulation = false;
 		}
+	}
+	int size = systems.size();
+	for (int i = 0; i < size; i++) {
+		delete systems[i];
 	}
 	delete[] interstellar_cloud;
 	return 0;

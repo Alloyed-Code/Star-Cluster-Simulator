@@ -1,6 +1,10 @@
 #include <iostream>
 #include <string>
 #include "constants.h"
+#include "celestial_system.h"
+#include <vector>
+#include "celestial_system.h"
+#include "unary.h"
 
 int get_simulation_time() {
 	std::cout << "How many millions of years should the simulation run for? ";
@@ -65,10 +69,26 @@ void gravity(double*** interstellar_cloud, int x, int y, int z, int cluster_diam
 				interstellar_cloud[heaviest_mass_index_x][heaviest_mass_index_y][heaviest_mass_index_z] += mass_dif * percent_gravity_difference_transfer;
 				interstellar_cloud[x][y][z] -= mass_dif * percent_gravity_difference_transfer;
 			}
-			std::cout << interstellar_cloud[x][y][z] << " and " << interstellar_cloud[heaviest_mass_index_x][heaviest_mass_index_y][heaviest_mass_index_z] << std::endl;
+			//std::cout << interstellar_cloud[x][y][z] << " and " << interstellar_cloud[heaviest_mass_index_x][heaviest_mass_index_y][heaviest_mass_index_z] << std::endl;
 		}
 		else {
-			std::cout << "Current is heaviest " << interstellar_cloud[x][y][z] << std::endl;
+			//std::cout << "Current is heaviest " << interstellar_cloud[x][y][z] << std::endl;
+		}
+	}
+}
+
+void generate_protostars(double*** interstellar_cloud, int x, int y, int z, std::vector<celestial_system*>& systems, std::string cluster_name) {
+	if (interstellar_cloud[x][y][z] > 0) {
+		int random_percent = rand() % (100) + 1;
+		if (random_percent + interstellar_cloud[x][y][z] > (100 - star_formation_chance)) {
+			double mass_used = interstellar_cloud[x][y][z] * ((rand() % (100 - star_mass_min + 1) + star_mass_min) / 100);
+			double system_x = x * cell_ly_size + cell_ly_size * (double(rand() % (100) + 1) / 100);
+			double system_y = y * cell_ly_size + cell_ly_size * (double(rand() % (100) + 1) / 100);
+			double system_z = z * cell_ly_size + cell_ly_size * (double(rand() % (100) + 1) / 100);
+			//form star
+			systems.push_back(new unary(mass_used, system_x, system_y, system_z, cluster_name + "-" + std::to_string(systems.size() + 1)));
+			interstellar_cloud[x][y][z] -= mass_used;
+			std::cout << "A protostar named " << systems[systems.size() - 1]->get_name() << " has formed at " << system_x << "," << system_y << "," << system_z << std::endl;
 		}
 	}
 }

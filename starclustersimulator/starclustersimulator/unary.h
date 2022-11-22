@@ -1,12 +1,12 @@
 #pragma once
-#include "system.h"
+#include "celestial_system.h"
 #include "stellar_body.h"
 
-class unary : public system {
+class unary : public celestial_system {
 private:
 	stellar_body star;
 
 public:
-	void age_stars() override;
-	unary(double mass, double x, double y, double z, std::string name) :system(name, x, y, z);
+	void age_stars(int time) override;
+	unary(double mass, double x, double y, double z, std::string name);
 };
