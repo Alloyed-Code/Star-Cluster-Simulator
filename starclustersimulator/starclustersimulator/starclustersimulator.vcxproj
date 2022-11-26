@@ -141,6 +141,7 @@
   <ItemGroup>
     <ClCompile Include="initializing.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="main_sequence.cpp" />
     <ClCompile Include="protostar.cpp" />
     <ClCompile Include="Simulating.cpp" />
     <ClCompile Include="celestial_system.cpp" />
@@ -150,6 +151,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="constants.h" />
+    <ClInclude Include="main_sequence.h" />
     <ClInclude Include="protostar.h" />
     <ClInclude Include="star.h" />
     <ClInclude Include="stellar_body.h" />

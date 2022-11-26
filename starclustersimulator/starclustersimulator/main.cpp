@@ -11,6 +11,7 @@
 #include "unary.h"
 #include "stellar_body.h"
 #include "protostar.h"
+#include "main_sequence.h"
 
 int get_cluster_diameter();
 double get_initial_mass(int diameter);
@@ -18,7 +19,7 @@ int get_simulation_time();
 void add_evem_cell_mass(int cluster_diameter_cells, double& cluster_mass, double*** interstellar_cloud);
 void random_mass_distribution(int cluster_diameter_cells, double& cluster_mass, double*** interstellar_cloud);
 void gravity(double*** interstellar_cloud, int x, int y, int z, int cluster_diameter_cells);
-void generate_protostars(double*** interstellar_cloud, int x, int y, int z, std::vector<celestial_system*>& systems, std::string cluster_name);
+void generate_protostars(double*** interstellar_cloud, int x, int y, int z, std::vector<celestial_system*>& systems, std::string cluster_name, bool verbose = true);
 
 
 int main() {
@@ -35,12 +36,12 @@ int main() {
 	double cluster_mass = get_initial_mass(cluster_diameter_cells);
 
 	double*** interstellar_cloud = new double** [cluster_diameter_cells];
-	for (int i = 0; i < cluster_diameter_cells; i++) {
-		interstellar_cloud[i] = new double* [cluster_diameter_cells];
-		for (int j = 0; j < cluster_diameter_cells; j++) {
-			interstellar_cloud[i][j] = new double[cluster_diameter_cells];
-			for (int a = 0; a < cluster_diameter_cells; a++) {
-				interstellar_cloud[i][j][a] = 0;
+	for (int x = 0; x < cluster_diameter_cells; x++) {
+		interstellar_cloud[x] = new double* [cluster_diameter_cells];
+		for (int y = 0; y < cluster_diameter_cells; y++) {
+			interstellar_cloud[x][y] = new double[cluster_diameter_cells];
+			for (int z = 0; z < cluster_diameter_cells; z++) {
+				interstellar_cloud[x][y][z] = 0;
 			}
 		}
 	}
@@ -75,6 +76,43 @@ int main() {
 				}
 			}
 			//age stars
+			for (int i = 0; i < systems.size(); i++) {
+				if (unary* un = dynamic_cast<unary*>(systems[i])) {
+					systems[i]->age_stars(1000000);
+					std::cout << systems[i]->get_stars()->get_age() << std::endl;
+					if (systems[i]->get_stars()->get_age() >= systems[i]->get_stars()->get_lifespan()) {
+						if (protostar* proto = dynamic_cast<protostar*>(systems[i]->get_stars())) {
+							std::cout << "protostar" << std::endl;
+							if (systems[i]->get_stars()->get_mass() > 0.08) {
+								//star = new main_sequence(star->get_name(), star->get_mass());
+								std::cout << "Main sequence" << std::endl;
+							}
+							else {
+								//brown dwarf
+								std::cout << "Brown Dwarf" << std::endl;
+							}
+						}
+						else {
+							std::cout << "not a proto" << std::endl;
+						}
+					}
+					else {
+						std::cout << "star still too young" << std::endl;
+					}
+				}
+				else {
+					std::cout << "not a unary system" << std::endl;
+				}
+				
+			}
+
+			for (int i = 0; i < systems.size(); i++) {
+				if (unary* un = dynamic_cast<unary*>(systems[i])) {
+					if (main_sequence* star = dynamic_cast<main_sequence*>(un->get_stars())) {
+						std::cout << "Main sequence star!" << std::endl;
+					}
+				}
+			}
 			//record state to csv
 
 		}

@@ -39,6 +39,9 @@
     <ClCompile Include="star.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="main_sequence.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="constants.h">
@@ -57,6 +60,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="star.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="main_sequence.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

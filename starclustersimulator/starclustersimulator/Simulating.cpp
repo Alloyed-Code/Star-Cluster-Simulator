@@ -77,7 +77,7 @@ void gravity(double*** interstellar_cloud, int x, int y, int z, int cluster_diam
 	}
 }
 
-void generate_protostars(double*** interstellar_cloud, int x, int y, int z, std::vector<celestial_system*>& systems, std::string cluster_name) {
+void generate_protostars(double*** interstellar_cloud, int x, int y, int z, std::vector<celestial_system*>& systems, std::string cluster_name, bool verbose = true) {
 	if (interstellar_cloud[x][y][z] > 0) {
 		int random_percent = rand() % (100) + 1;
 		if (random_percent + interstellar_cloud[x][y][z] > (100 - star_formation_chance)) {
@@ -88,7 +88,9 @@ void generate_protostars(double*** interstellar_cloud, int x, int y, int z, std:
 			//form star
 			systems.push_back(new unary(mass_used, system_x, system_y, system_z, cluster_name + "-" + std::to_string(systems.size() + 1)));
 			interstellar_cloud[x][y][z] -= mass_used;
-			std::cout << "A protostar named " << systems[systems.size() - 1]->get_name() << " has formed at " << system_x << "," << system_y << "," << system_z << std::endl;
+			if (verbose) {
+				std::cout << "A protostar named " << systems[systems.size() - 1]->get_name() << " has formed at " << system_x << "," << system_y << "," << system_z << std::endl;
+			}
 		}
 	}
 }

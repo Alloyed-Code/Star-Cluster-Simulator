@@ -8,3 +8,11 @@ unary::unary(double mass, double x, double y, double z, std::string name) :celes
 void unary::age_stars(int time) {
 	star.age_body(time);
 }
+
+stellar_body* unary::get_stars() {
+	return &star;
+}
+
+void unary::evolve_star(stellar_body new_star) {
+	star = new_star;
+}

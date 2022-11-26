@@ -6,10 +6,14 @@ protected:
 	std::string name;
 	double mass;
 	
-	long int lifespan;
-	long int current_age;
+	long long int lifespan;
+	long long int current_age;
 public:
 	stellar_body(std::string name);
 	stellar_body();
 	virtual void age_body(int time);
+	long long int get_lifespan();
+	long long int get_age();
+	std::string get_name();
+	double get_mass();
 };
