@@ -10,3 +10,13 @@ celestial_system::celestial_system(std::string name, double x, double y, double 
 std::string celestial_system::get_name() {
 	return system_name;
 }
+
+double celestial_system::get_x() {
+	return x;
+}
+double celestial_system::get_y() {
+	return y;
+}
+double celestial_system::get_z() {
+	return z;
+}

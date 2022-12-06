@@ -14,4 +14,7 @@ public:
 	std::string get_name();
 	virtual stellar_body* get_stars() = 0;
 	virtual void set_stars(stellar_body*) = 0;
+	double get_x();
+	double get_y();
+	double get_z();
 };

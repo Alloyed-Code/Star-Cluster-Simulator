@@ -1,6 +1,2 @@
-﻿  main_sequence.cpp
-C:\Users\corba\Documents\College\C++ Programs\Star-Cluster-Simulator\starclustersimulator\starclustersimulator\main_sequence.cpp(13,31): warning C4244: '=': conversion from 'double' to '__int64', possible loss of data
-  protostar.cpp
-  stellar_body.cpp
-  Generating Code...
+﻿  Simulating.cpp
   starclustersimulator.vcxproj -> C:\Users\corba\Documents\College\C++ Programs\Star-Cluster-Simulator\starclustersimulator\x64\Debug\starclustersimulator.exe

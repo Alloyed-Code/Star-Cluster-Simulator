@@ -5,6 +5,16 @@
 #include <vector>
 #include "celestial_system.h"
 #include "unary.h"
+#include "protostar.h"
+#include "main_sequence.h"
+#include "brown_dwarf.h"
+#include "supergiant.h"
+#include "red_giant.h"
+#include "white_dwarf.h"
+#include "black_hole.h"
+#include "neutron_star.h"
+
+void explosion(double*** interstellar_cloud, double sys_x, double sys_y, double sys_z, double mass, int cluster_diameter_cells);
 
 int get_simulation_time() {
 	std::cout << "How many millions of years should the simulation run for? ";
@@ -78,7 +88,7 @@ void gravity(double*** interstellar_cloud, int x, int y, int z, int cluster_diam
 }
 
 void generate_protostars(double*** interstellar_cloud, int x, int y, int z, std::vector<celestial_system*>& systems, std::string cluster_name, bool verbose = true) {
-	if (interstellar_cloud[x][y][z] > 0) {
+	if (interstellar_cloud[x][y][z] > cloud_mass_min) {
 		int random_percent = rand() % (100) + 1;
 		if (random_percent + interstellar_cloud[x][y][z] > (100 - star_formation_chance)) {
 			double mass_used = interstellar_cloud[x][y][z] * ((rand() % (100 - star_mass_min + 1) + star_mass_min) / 100.0);
@@ -91,6 +101,128 @@ void generate_protostars(double*** interstellar_cloud, int x, int y, int z, std:
 			if (verbose) {
 				std::cout << "A protostar named " << systems[systems.size() - 1]->get_name() << " has formed at " << system_x << "," << system_y << "," << system_z << std::endl;
 			}
+		}
+	}
+}
+
+void evolve_stars(double*** interstellar_cloud, std::vector<celestial_system*>& systems, int cluster_diameter_cells, bool verbose = true) {
+	for (int i = 0; i < systems.size(); i++) {
+		if (unary* un = dynamic_cast<unary*>(systems[i])) {
+			systems[i]->age_stars(1000000);
+			//std::cout << systems[i]->get_stars()->get_age() << std::endl;
+			if (systems[i]->get_stars()->get_age() >= systems[i]->get_stars()->get_lifespan()) {
+				if (protostar* proto = dynamic_cast<protostar*>(systems[i]->get_stars())) {
+					//protostar
+					if (systems[i]->get_stars()->get_mass() > 0.08) {
+						//to main sequence
+						stellar_body* star = new main_sequence(systems[i]->get_stars()->get_name(), systems[i]->get_stars()->get_mass());
+						systems[i]->set_stars(star);
+						if (verbose) {
+							std::cout << "The protostar " << systems[i]->get_stars()->get_name() << " has evolved into a main sequence star!" << std::endl;
+						}
+					}
+					else {
+						//to brown dwarf
+						stellar_body* star = new brown_dwarf(systems[i]->get_stars()->get_name(), systems[i]->get_stars()->get_mass());
+						systems[i]->set_stars(star);
+						if (verbose) {
+							std::cout << "The protostar " << systems[i]->get_stars()->get_name() << " has evolved into a brown dwarf!" << std::endl;
+						}
+					}
+				}
+				else if (main_sequence* main_star = dynamic_cast<main_sequence*>(systems[i]->get_stars())) {
+					//main sequence
+					if (systems[i]->get_stars()->get_mass() > 8) {
+						//to supergiant
+						stellar_body* star = new supergiant(systems[i]->get_stars()->get_name(), systems[i]->get_stars()->get_mass());
+						systems[i]->set_stars(star);
+						if (verbose) {
+							std::cout << "The main sequence star " << systems[i]->get_stars()->get_name() << " has evolved into a supergiant!" << std::endl;
+						}
+					}
+					else {
+						//to red giant
+						stellar_body* star = new red_giant(systems[i]->get_stars()->get_name(), systems[i]->get_stars()->get_mass());
+						systems[i]->set_stars(star);
+						if (verbose) {
+							std::cout << "The main sequence star " << systems[i]->get_stars()->get_name() << " has evolved into a red giant!" << std::endl;
+						}
+					}
+				}
+				else if (red_giant* giant = dynamic_cast<red_giant*>(systems[i]->get_stars())) {
+					//red giant
+					//to white dwarf
+					//planetary nebula
+					explosion(interstellar_cloud, systems[i]->get_x(), systems[i]->get_y(), systems[i]->get_z(), systems[i]->get_stars()->get_mass() / 2, cluster_diameter_cells);
+					stellar_body* star = new white_dwarf(systems[i]->get_stars()->get_name(), systems[i]->get_stars()->get_mass() / 2);
+					systems[i]->set_stars(star);
+					if (verbose) {
+						std::cout << "The red giant " << systems[i]->get_stars()->get_name() << " has evolved into a planetary nebula and white dwarf!" << std::endl;
+					}
+
+				}
+				else if (supergiant* giant = dynamic_cast<supergiant*>(systems[i]->get_stars())) {
+					//supergiant
+					if (systems[i]->get_stars()->get_mass() > 25) {
+						//to black hole
+						//supernova
+						explosion(interstellar_cloud, systems[i]->get_x(), systems[i]->get_y(), systems[i]->get_z(), systems[i]->get_stars()->get_mass() * (4.0/5), cluster_diameter_cells);
+						stellar_body* body = new black_hole(systems[i]->get_stars()->get_name(), systems[i]->get_stars()->get_mass() / 5);
+						systems[i]->set_stars(body);
+						if (verbose) {
+							std::cout << "The supergiant " << systems[i]->get_stars()->get_name() << " has exploded in a supernova and left a black hole!" << std::endl;
+						}
+					}
+					else {
+						//to neutron star
+						//supernova
+						explosion(interstellar_cloud, systems[i]->get_x(), systems[i]->get_y(), systems[i]->get_z(), systems[i]->get_stars()->get_mass() * (4.0/5), cluster_diameter_cells);
+						stellar_body* star = new neutron_star(systems[i]->get_stars()->get_name(), systems[i]->get_stars()->get_mass() / 5);
+						systems[i]->set_stars(star);
+						if (verbose) {
+							std::cout << "The supergiant " << systems[i]->get_stars()->get_name() << " has exploded in a supernova and left a neutron star!" << std::endl;
+						}
+					}
+				}
+			}
+			else {
+				//std::cout << "star still too young" << std::endl;
+			}
+		}
+		else {
+			std::cout << "not a unary system" << std::endl;
+		}
+
+	}
+}
+
+void explosion(double*** interstellar_cloud, double sys_x, double sys_y, double sys_z, double mass, int cluster_diameter_cells) {
+	int cell_x = int(sys_x) / cell_ly_size;
+	int cell_y = int(sys_y) / cell_ly_size;
+	int cell_z = int(sys_z) / cell_ly_size;
+	double per_mass = mass / 27;
+	for (int x_rel = -1; x_rel < 2; x_rel++) {
+		if ((x_rel + cell_x) >= 0 && (x_rel + cell_x) < cluster_diameter_cells) { //check if inside array
+			for (int y_rel = -1; y_rel < 2; y_rel++) {
+				if ((y_rel + cell_y) >= 0 && (y_rel + cell_y) < cluster_diameter_cells) {
+					for (int z_rel = -1; z_rel < 2; z_rel++) {
+						if ((z_rel + cell_z) >= 0 && (z_rel + cell_z) < cluster_diameter_cells) {
+							if (x_rel != 0 || y_rel != 0 || z_rel != 0) {
+								interstellar_cloud[cell_x + x_rel][cell_y + y_rel][cell_z + z_rel] += per_mass;
+							}
+						}
+						else { //outside array
+							interstellar_cloud[cell_x][cell_y][cell_z] += per_mass;
+						}
+					}
+				}
+				else { //outside array
+					interstellar_cloud[cell_x][cell_y][cell_z] += per_mass;
+				}
+			}
+		}
+		else { //outside array
+			interstellar_cloud[cell_x][cell_y][cell_z] += per_mass;
 		}
 	}
 }

@@ -42,6 +42,24 @@
     <ClCompile Include="main_sequence.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="brown_dwarf.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="supergiant.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="red_giant.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="white_dwarf.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="black_hole.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="neutron_star.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="constants.h">
@@ -63,6 +81,24 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="main_sequence.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="brown_dwarf.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="supergiant.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="red_giant.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="white_dwarf.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="black_hole.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="neutron_star.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
