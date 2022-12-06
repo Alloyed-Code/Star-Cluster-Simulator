@@ -81,7 +81,9 @@ int main() {
 					systems[i]->age_stars(1000000);
 					std::cout << systems[i]->get_stars()->get_age() << std::endl;
 					if (systems[i]->get_stars()->get_age() >= systems[i]->get_stars()->get_lifespan()) {
-						if (protostar* proto = dynamic_cast<protostar*>(systems[i]->get_stars())) {
+						stellar_body* temp_body = systems[i]->get_stars();
+						star* temp_star = dynamic_cast<star*>(temp_body);
+						if (protostar* proto = dynamic_cast<protostar*>(temp_star)) {
 							std::cout << "protostar" << std::endl;
 							if (systems[i]->get_stars()->get_mass() > 0.08) {
 								//star = new main_sequence(star->get_name(), star->get_mass());

@@ -1,1 +1,4 @@
-﻿  starclustersimulator.vcxproj -> C:\Users\corba\Documents\College\C++ Programs\Star-Cluster-Simulator\starclustersimulator\x64\Debug\starclustersimulator.exe
+﻿  main.cpp
+C:\Users\corba\Documents\College\C++ Programs\Star-Cluster-Simulator\starclustersimulator\starclustersimulator\main.cpp(28,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\corba\Documents\College\C++ Programs\Star-Cluster-Simulator\starclustersimulator\starclustersimulator\main.cpp(129,27): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  starclustersimulator.vcxproj -> C:\Users\corba\Documents\College\C++ Programs\Star-Cluster-Simulator\starclustersimulator\x64\Debug\starclustersimulator.exe
