@@ -81,7 +81,7 @@ void generate_protostars(double*** interstellar_cloud, int x, int y, int z, std:
 	if (interstellar_cloud[x][y][z] > 0) {
 		int random_percent = rand() % (100) + 1;
 		if (random_percent + interstellar_cloud[x][y][z] > (100 - star_formation_chance)) {
-			double mass_used = interstellar_cloud[x][y][z] * ((rand() % (100 - star_mass_min + 1) + star_mass_min) / 100);
+			double mass_used = interstellar_cloud[x][y][z] * ((rand() % (100 - star_mass_min + 1) + star_mass_min) / 100.0);
 			double system_x = x * cell_ly_size + cell_ly_size * (double(rand() % (100) + 1) / 100);
 			double system_y = y * cell_ly_size + cell_ly_size * (double(rand() % (100) + 1) / 100);
 			double system_z = z * cell_ly_size + cell_ly_size * (double(rand() % (100) + 1) / 100);

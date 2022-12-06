@@ -81,12 +81,11 @@ int main() {
 					systems[i]->age_stars(1000000);
 					std::cout << systems[i]->get_stars()->get_age() << std::endl;
 					if (systems[i]->get_stars()->get_age() >= systems[i]->get_stars()->get_lifespan()) {
-						stellar_body* temp_body = systems[i]->get_stars();
-						star* temp_star = dynamic_cast<star*>(temp_body);
-						if (protostar* proto = dynamic_cast<protostar*>(temp_star)) {
-							std::cout << "protostar" << std::endl;
+						if (protostar* proto = dynamic_cast<protostar*>(systems[i]->get_stars())) {
+							std::cout << "protostar " << systems[i]->get_stars()->get_mass() << std::endl;
 							if (systems[i]->get_stars()->get_mass() > 0.08) {
-								//star = new main_sequence(star->get_name(), star->get_mass());
+								stellar_body* star = new main_sequence(systems[i]->get_stars()->get_name(), systems[i]->get_stars()->get_mass());
+								systems[i]->set_stars(star);
 								std::cout << "Main sequence" << std::endl;
 							}
 							else {
@@ -106,14 +105,6 @@ int main() {
 					std::cout << "not a unary system" << std::endl;
 				}
 				
-			}
-
-			for (int i = 0; i < systems.size(); i++) {
-				if (unary* un = dynamic_cast<unary*>(systems[i])) {
-					if (main_sequence* star = dynamic_cast<main_sequence*>(un->get_stars())) {
-						std::cout << "Main sequence star!" << std::endl;
-					}
-				}
 			}
 			//record state to csv
 

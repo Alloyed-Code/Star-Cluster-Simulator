@@ -2,6 +2,7 @@
 
 stellar_body::stellar_body(std::string name) {
 	this->name = name;
+	current_age = 0;
 }
 stellar_body::stellar_body() {
 	stellar_body("temp");
