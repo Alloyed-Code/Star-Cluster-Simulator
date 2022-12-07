@@ -8,5 +8,5 @@ protostar::protostar(std::string name, double mass) : star(name) {
 	temperature = 2500;
 	lifespan = 10000000;
 	radius = 70;
-	color = color::white;
+	star_color = color::white;
 }

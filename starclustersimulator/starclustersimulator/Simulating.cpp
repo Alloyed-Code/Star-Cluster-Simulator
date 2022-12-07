@@ -226,3 +226,28 @@ void explosion(double*** interstellar_cloud, double sys_x, double sys_y, double 
 		}
 	}
 }
+
+std::string color_string(color color) {
+	switch (color) {
+	case color::blue:
+		return "blue";
+	case color::deep_blue_white:
+		return "deep blue white";
+	case color::blue_white:
+		return "blue white";
+	case color::white:
+		return "white";
+	case color::yellow:
+		return "yellow";
+	case color::orange:
+		return "orange";
+	case color::red:
+		return "red";
+	case color::brown:
+		return "brown";
+	case color::black:
+		return "black";
+	default:
+		return "invisible";
+	}
+}

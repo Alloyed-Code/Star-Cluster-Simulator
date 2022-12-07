@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include "constants.h"
 
 class stellar_body {
 protected:
@@ -16,4 +17,6 @@ public:
 	long long int get_age();
 	std::string get_name();
 	double get_mass();
+	virtual double get_radius();
+	virtual color get_color();
 };

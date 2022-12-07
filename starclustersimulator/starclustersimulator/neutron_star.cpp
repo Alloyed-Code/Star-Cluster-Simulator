@@ -7,5 +7,5 @@ neutron_star::neutron_star(std::string name, double mass) : star(name) {
 	lifespan = 10000000000;
 	luminosity = pow(mass, 3.5);
 	temperature = 1000000;
-	color = color::blue;
+	star_color = color::blue;
 }

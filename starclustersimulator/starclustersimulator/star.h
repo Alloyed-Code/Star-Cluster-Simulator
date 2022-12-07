@@ -7,7 +7,9 @@ protected:
 	double luminosity;
 	double temperature;
 	double radius;
-	color color;
+	color star_color;
 public:
 	star(std::string name);
+	double get_radius() override;
+	color get_color() override;
 };

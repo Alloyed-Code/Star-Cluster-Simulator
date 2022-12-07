@@ -25,3 +25,11 @@ std::string stellar_body::get_name() {
 double stellar_body::get_mass() {
 	return mass;
 }
+
+double stellar_body::get_radius() {
+	return -1;
+}
+
+color stellar_body::get_color() {
+	return color::black;
+}

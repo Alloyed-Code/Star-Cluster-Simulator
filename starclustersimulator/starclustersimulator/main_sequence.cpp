@@ -13,24 +13,24 @@ main_sequence::main_sequence(std::string name, double mass) : star(name) {
 	lifespan = mass / luminosity * 10000000000;
 	temperature = pow(luminosity / pow(radius, 2), 0.25) * 5778;
 	if (temperature < 3700) {
-		color = color::red;
+		star_color = color::red;
 	}
 	else if (temperature < 5200) {
-		color = color::orange;
+		star_color = color::orange;
 	}
 	else if (temperature < 6000) {
-		color = color::yellow;
+		star_color = color::yellow;
 	}
 	else if (temperature < 7500) {
-		color = color::white;
+		star_color = color::white;
 	}
 	else if (temperature < 10000) {
-		color = color::blue_white;
+		star_color = color::blue_white;
 	}
 	else if(temperature < 30000) {
-		color = color::deep_blue_white;
+		star_color = color::deep_blue_white;
 	}
 	else if (temperature >= 30000) {
-		color = color::blue;
+		star_color = color::blue;
 	}
 }

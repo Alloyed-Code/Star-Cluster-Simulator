@@ -1,5 +1,6 @@
 #include "black_hole.h"
 #include <string>
+#include "constants.h"
 
 black_hole::black_hole(std::string name, double mass) {
 	this->name = name;
@@ -9,4 +10,8 @@ black_hole::black_hole(std::string name, double mass) {
 
 double black_hole::get_radius() {
 	return s_radius;
+}
+
+color black_hole::get_color() {
+	return black_hole_color;
 }

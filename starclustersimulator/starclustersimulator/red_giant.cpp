@@ -7,5 +7,5 @@ red_giant::red_giant(std::string name, double mass) : star(name) {
 	lifespan = 1000000000;
 	luminosity = 3000;
 	temperature = 2500;
-	color = color::red;
+	star_color = color::red;
 }

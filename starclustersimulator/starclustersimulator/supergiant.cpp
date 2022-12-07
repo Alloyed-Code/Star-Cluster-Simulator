@@ -7,5 +7,5 @@ supergiant::supergiant(std::string name, double mass) : star(name) {
 	lifespan = 30000000;
 	luminosity = 1000000;
 	temperature = 10000;
-	color = color::blue_white;
+	star_color = color::blue_white;
 }

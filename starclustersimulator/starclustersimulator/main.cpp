@@ -12,6 +12,7 @@
 #include "stellar_body.h"
 #include "protostar.h"
 #include "main_sequence.h"
+#include <fstream>
 
 int get_cluster_diameter();
 double get_initial_mass(int diameter);
@@ -21,6 +22,7 @@ void random_mass_distribution(int cluster_diameter_cells, double& cluster_mass, 
 void gravity(double*** interstellar_cloud, int x, int y, int z, int cluster_diameter_cells);
 void generate_protostars(double*** interstellar_cloud, int x, int y, int z, std::vector<celestial_system*>& systems, std::string cluster_name, bool verbose = true);
 void evolve_stars(double*** interstellar_cloud, std::vector<celestial_system*>& systems, int cluster_diameter_cells, bool verbose = true);
+std::string color_string(color color);
 
 
 int main() {
@@ -55,11 +57,28 @@ int main() {
 	
 	std::vector<celestial_system*> systems;
 
+	//file setup
+
+	std::string path = "Data\\" + cluster_name + ".csv";
+	std::ofstream output;
+	output.open(path);
+	if (output.is_open()) {
+		output << cluster_name << "," << cluster_diameter;
+		output.close();
+	}
+	else {
+		std::cout << "Error opening file!" << std::endl;
+		output.close();
+		return 1;
+	}
+
 	//start of simulation
+	long long int total_time = 0;
 	bool run_simulation = true;
 	while (run_simulation) {
 		int simulation_time = get_simulation_time();
 		for (int i = 0; i < simulation_time; i++) {
+			total_time += 1000000;
 			//move gas
 			for (int x = 0; x < cluster_diameter_cells; x++) {
 				for (int y = 0; y < cluster_diameter_cells; y++) {
@@ -80,6 +99,24 @@ int main() {
 			evolve_stars(interstellar_cloud, systems, cluster_diameter_cells);
 
 			//record state to csv
+			output.open(path, std::ios::app);
+			if (output.is_open()) {
+				output << std::endl << total_time;
+				for (int i = 0; i < systems.size(); i++) {
+					output << "," << systems[i]->get_name() <<
+						"," << systems[i]->get_x() <<
+						"," << systems[i]->get_y() <<
+						"," << systems[i]->get_z() <<
+						"," << color_string(systems[i]->get_stars()->get_color()) <<
+						"," << systems[i]->get_stars()->get_radius();
+				}
+				output.close();
+			}
+			else {
+				std::cout << "Error opening file!" << std::endl;
+				output.close();
+				return 1;
+			}
 
 		}
 

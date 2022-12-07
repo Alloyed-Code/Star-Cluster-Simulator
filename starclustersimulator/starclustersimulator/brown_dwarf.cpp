@@ -7,5 +7,5 @@ brown_dwarf::brown_dwarf(std::string name, double mass) : star(name) {
 	lifespan = 10000000;
 	luminosity = 0;
 	temperature =  1000;
-	color = color::brown;
+	star_color = color::brown;
 }
