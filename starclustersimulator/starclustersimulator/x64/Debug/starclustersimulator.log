@@ -1,2 +1,20 @@
-﻿  Simulating.cpp
+﻿  black_hole.cpp
+  brown_dwarf.cpp
+  initializing.cpp
+  main.cpp
+C:\Users\corba\Documents\College\C++ Programs\Star-Cluster-Simulator\starclustersimulator\starclustersimulator\main.cpp(31,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\corba\Documents\College\C++ Programs\Star-Cluster-Simulator\starclustersimulator\starclustersimulator\main.cpp(130,11): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  main_sequence.cpp
+C:\Users\corba\Documents\College\C++ Programs\Star-Cluster-Simulator\starclustersimulator\starclustersimulator\main_sequence.cpp(13,31): warning C4244: '=': conversion from 'double' to '__int64', possible loss of data
+  neutron_star.cpp
+  protostar.cpp
+  red_giant.cpp
+  Simulating.cpp
+  celestial_system.cpp
+  star.cpp
+  stellar_body.cpp
+  supergiant.cpp
+  unary.cpp
+  white_dwarf.cpp
+  Generating Code...
   starclustersimulator.vcxproj -> C:\Users\corba\Documents\College\C++ Programs\Star-Cluster-Simulator\starclustersimulator\x64\Debug\starclustersimulator.exe
